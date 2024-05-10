@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the number</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<style>
+    body{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+     .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding-top: 30px;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+
+        #card{
+            background-color: #1976d2;
+            box-shadow: 0px 8px 1px blue;
+            border-radius: 1rem;
+            padding: 1rem 1rem;
+            width: 25rem ;
+            height: 30rem;
+        }
+
+        .card-content{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        input{
+            width: 20rem;
+            height: 2rem;
+            box-shadow: 0px 8px 1px rgb(247, 160, 0);
+            border: none;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: x-large;
+            font-weight: 500;
+        }
+
+        input:focus{
+            border: 1px solid #ffcc00 !important;
+            outline: none;
+        }
+
+        #check{
+            border: none;
+            padding: 0.7rem 3rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background-color: #ffcc00;
+            box-shadow: 0px 8px 1px rgb(247, 160, 0);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        #check:hover{
+            background-color: #f1c500;
+        }
+
+        #check:focus{
+            background-color: #e2b900;
+            border: none;
+            outline: none;
+        }
+
+        .card-result{
+            border: none;
+            padding: 0.7rem 5.4rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background-color: white;
+            box-shadow: 0px 8px 1px rgb(133, 133, 133);
+            border-radius: 0.5rem;
+            margin-top: 3rem;
+
+        }
+
+        .card-score{
+            border: none;
+            padding: 0.7rem 5.4rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background-color: white;
+            box-shadow: 0px 8px 1px rgb(133, 133, 133);
+            border-radius: 0.5rem;
+            margin-top: 3rem;
+
+        }
+
+        #result,#score,#guessed{
+            color: black;
+        }
+
+        @media(max-width:1024px){
+            #card{
+            background-color: #1976d2;
+            box-shadow: 0px 8px 1px blue;
+            border-radius: 1rem;
+            padding: 1rem 1rem;
+            width: 20rem ;
+            height: 25rem;
+        }
+
+        .card-result{
+            border: none;
+            padding: 0.7rem 4rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background-color: white;
+            box-shadow: 0px 8px 1px rgb(133, 133, 133);
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+
+        }
+
+        .card-score{
+            border: none;
+            padding: 0.7rem 4rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background-color: white;
+            box-shadow: 0px 8px 1px rgb(133, 133, 133);
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+
+        }
+        }
+
+        @media(max-width:425px){
+            #card{
+            background-color: #1976d2;
+            box-shadow: 0px 8px 1px blue;
+            border-radius: 1rem;
+            padding: 1rem 1rem;
+            width: 15rem ;
+            height: 25rem;
+        }
+
+        input{
+            width:15rem;
+            height: 2rem;
+            box-shadow: 0px 8px 1px rgb(247, 160, 0);
+            border: none;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: large;
+            font-weight: 500;
+        }
+
+        #check{
+            border: none;
+            padding: 0.5rem 2.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background-color: #ffcc00;
+            box-shadow: 0px 8px 1px rgb(247, 160, 0);
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .card-result{
+            border: none;
+            padding: 0.5rem 3rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background-color: white;
+            box-shadow: 0px 8px 1px rgb(133, 133, 133);
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+
+        }
+
+        .card-score{
+            border: none;
+            padding: 0.7rem 4rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background-color: white;
+            box-shadow: 0px 8px 1px rgb(133, 133, 133);
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+
+        }
+
+        h2{
+            font-size: 1rem;
+        }
+        h4{
+            font-size: 0.9rem;
+        }
+        }
+</style>
+<body>
+    <video autoplay muted loop class="bg-video">
+        <source src="assets/bg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+   
+    <div class="content" style="display: flex;flex-direction: column;align-items:center;justify-content: center;">
+        <h2>Guess the Number Game</h2>
+
+        <div id="card">
+            <div class="card-content">
+                    <a href="main.html" style="position: absolute;left: 0;color: white;font-size: 0.7rem;">Back</a>
+                    <h4>Guess the number between 1-15</h4>
+                <input type="number"  id="enter"><br>
+                <button id="check" onclick="checked()">Check</button>
+               <div class="card-result" style="display: none;">
+                    <p id="result"></p>
+                    <p id="guessed"></p>
+               </div>
+               <div class="card-score">
+                    <p id="score"></p>
+
+               </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        Swal.fire({
+            icon: "info",
+            title: "Game Instructions",
+            html:'<ul style="text-align:left;"><li>Guess numbers between 15 </li><br><li>You have 10 points each wrong guess will reduce 1</li><br><li>Once all the points over game will end & reset</li></ul>',
+            showConfirmButton: true,
+            });
+
+        var wonAudio = new Audio('assets/won.mpeg')
+        var loseAudio = new Audio('assets/lose.mpeg')
+        var maintheme = new Audio('assets/maintheme.mpeg')
+
+        maintheme.volume = 0.3
+        maintheme.play()
+        
+        var enter = document.getElementById('enter')
+        var check = document.getElementById('check')
+        var random = Math.floor(Math.random() * 15 + 1)
+        var result = document.getElementById("result");
+        var score = document.getElementById("score");
+console.log(random)
+        var totalscore = 10
+
+        score.textContent ='Current Score :'   + " " +totalscore
+
+        check.addEventListener('click',function(){
+            var entered_value = enter.value
+
+            if(entered_value == ''){
+                return
+            }
+            else if(entered_value == random){
+                result.textContent = "You're Right"
+                Swal.fire({
+                        icon: "success",
+                        title: "You Won",
+                        showConfirmButton: false,
+                        timer:2000,
+                        });
+                        wonAudio.play()
+                    setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                }
+
+            else{
+
+                result.textContent = entered_value + " Is Wrong "
+
+                totalscore = totalscore - 1
+
+                score.textContent = "Total Score:"+totalscore
+
+                 if(entered_value < random){
+                    guessed.textContent = "Your Guess is Too Low"
+
+                }
+                else{
+                    guessed.textContent = "Your Guess is Too High"
+                }
+
+                if(entered_value > 15){
+                    guessed.textContent = "Your Guess is not in range"
+                    totalscore = 10
+                    score.textContent = "Total Score:"+totalscore
+
+                }
+
+                if(totalscore <= 0){
+                    loseAudio.play()
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Game Over",
+                        showConfirmButton: false,
+                        timer:2000,
+                        });
+                        setTimeout(() => {
+                        location.reload()
+                    }, 3000);
+                    totalscore = 10
+                    score.textContent = "Total Score:"+totalscore
+                }
+            }
+            document.querySelector('.card-result').style.display = "block"
+
+        })
+
+    </script>
+</body>
+</html>
